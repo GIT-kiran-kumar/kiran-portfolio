@@ -116,9 +116,9 @@
     <section id="contact">
         <h2>Contact Me</h2>
         <form class="contact-form" id="contactForm">
-            <input type="text" name="Name" placeholder="Your Name" required>
-            <input type="email" name="Email" placeholder="Your Email" required>
-            <textarea name="Message" placeholder="Your Message" rows="5" required></textarea>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
             <button type="submit">Send Message</button>
         </form>
     </section>
@@ -127,6 +127,33 @@
         <p>© 2025 Kiran Kumar Challa. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlDkWD6mjxPfzKoJ-mPX8GdaHJa_Y1agZz5_h78pe26ffdSa-upvGK0763LAxCSuO3ZQ/exec'; // Replace with your Apps Script Web App URL
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                message: form.message.value
+            };
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                alert("Message sent successfully!");
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Something went wrong. Try again.");
+            });
+        });
+    </script>
 </body>
 </html>
+
